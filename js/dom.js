@@ -1,7 +1,7 @@
 const notCompletedBook = document.getElementById("notcompletedShelf");
 const completedBook = document.getElementById("completedShelf");
 
-//
+// Reset Data untuk pencarian
 function resetDataRak() {
   notCompletedBook.innerHTML = "";
   completedBook.innerHTML = "";
@@ -20,7 +20,7 @@ function showData() {
 function cariBuku(judul) {
   if (listBuku) {
     for (let buku of listBuku) {
-      if (buku.title.search(judul) >= 0) {
+      if (buku.title.toLowerCase().search(judul.toLowerCase()) >= 0) {
         makeElement(buku);
       }
     }
@@ -45,15 +45,53 @@ function addBuku() {
 
   makeElement(newItem);
   updateLocalStorage();
+}
 
-  console.log(newItem);
+function toogleNotification() {
+  const notification = document.getElementById("deleteNotification");
+  notification.classList.toggle("active");
+}
+
+// Notifikasi Konfimasi untuk delete
+function showNotification(element) {
+  let indexOnListBuku = findIndexBuku(element["bukuId"]);
+
+  const notification = document.getElementById("deleteNotification");
+  toogleNotification();
+
+  const valueJudul = notification.querySelector("#valueJudul");
+  valueJudul.innerHTML = listBuku[indexOnListBuku].title;
+
+  const valueAuthor = notification.querySelector("#valueAuthor");
+  valueAuthor.innerHTML = listBuku[indexOnListBuku].author;
+
+  const valueTahun = notification.querySelector("#valueTahun");
+  valueTahun.innerHTML = listBuku[indexOnListBuku].year;
+
+  let cancelBtn = document.createElement("div");
+  cancelBtn.classList.add("btn", "btn-danger");
+  cancelBtn.innerHTML = "Tidak";
+  cancelBtn.addEventListener("click", () => {
+    toogleNotification();
+  });
+
+  let confirmBtn = document.createElement("div");
+  confirmBtn.classList.add("btn", "btn-primary");
+  confirmBtn.innerHTML = "Ya";
+  confirmBtn.addEventListener("click", () => {
+    deleteBook(element, indexOnListBuku);
+  });
+
+  let groupBtn = notification.querySelector("#modalGroupBtn");
+  groupBtn.innerHTML = "";
+  groupBtn.append(cancelBtn, confirmBtn);
 }
 
 // Event Handler untuk button hapus buku
-function deleteBook(element) {
-  let indexOnListBuku = findIndexBuku(element["bukuId"]);
+function deleteBook(element, idx) {
+  toogleNotification();
 
-  listBuku.splice(indexOnListBuku, 1);
+  listBuku.splice(idx, 1);
 
   element.remove();
   updateLocalStorage();
@@ -85,14 +123,14 @@ function makeElement(buku) {
   elementYear.innerHTML = buku.year;
 
   let deleteBtn = document.createElement("div");
-  deleteBtn.classList.add("btn", "btn-delete");
+  deleteBtn.classList.add("btn", "btn-danger");
   deleteBtn.innerHTML = "Hapus";
   deleteBtn.addEventListener("click", (e) => {
-    deleteBook(e.target.parentElement.parentElement);
+    showNotification(e.target.parentElement.parentElement);
   });
 
   let changerBtn = document.createElement("div");
-  changerBtn.classList.add("btn", "btn-changer");
+  changerBtn.classList.add("btn", "btn-primary");
   changerBtn.innerHTML = buku.isComplete ? "Belum Selesai" : "Sudah Selesai";
   changerBtn.addEventListener("click", (e) => {
     changeIsCompleteBook(e.target.parentElement.parentElement);

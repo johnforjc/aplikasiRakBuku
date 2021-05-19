@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formTambahBuku = document.getElementById("formTambahBuku");
   const formCariBuku = document.getElementById("cariBuku");
 
+  // form tambah buku event handler
   formTambahBuku.addEventListener("submit", (e) => {
     e.preventDefault();
     // Validation
@@ -18,9 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Form belum diisikan dengan benar");
     }
 
-    form.reset();
+    formTambahBuku.reset();
   });
 
+  // form cari buku event handler
   formCariBuku.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showData();
   });
 
-  //   Checking apakah Storage support di browser
+  //   Menampilkan data saat pertama kali masuk browser
   if (isStorage()) {
     loadDataFormStorage();
     showData();

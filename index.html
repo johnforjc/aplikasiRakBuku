@@ -14,35 +14,33 @@
         <h3>Tambah Buku</h3>
         <form action="" id="formTambahBuku">
           <div class="form-input">
-            <label for="judul">Judul Buku</label>
-            <input type="text" id="judul" />
+            <label for="judul" class="label">Judul Buku</label>
+            <input type="text" id="judul" class="value" />
           </div>
           <div class="form-input">
-            <label for="author">Author</label>
-            <input type="text" id="author" />
+            <label for="author" class="label">Author</label>
+            <input type="text" id="author" class="value" />
           </div>
           <div class="form-input">
-            <label for="tahun">Tahun Buku</label>
-            <input type="number" id="tahun" min="0" />
+            <label for="tahun" class="label">Tahun Buku</label>
+            <input type="number" id="tahun" min="0" class="value" />
           </div>
-          <input type="submit" value="Tambah Buku" />
+          <input type="submit" class="btn btn-primary" value="Tambah Buku" />
         </form>
       </div>
 
-      <div class="shelf">
+      <div class="form-section">
         <h3>Cari Buku</h3>
-        <div class="form-section">
-          <form action="" id="cariBuku">
-            <div class="form-input">
-              <label for="author">Cari menurut judul buku</label>
-              <input type="text" id="judulDicari" />
-            </div>
-            <div class="form-input">
-              <input type="submit" value="Cari Buku" />
-              <input type="reset" value="Reset Form" />
-            </div>
-          </form>
-        </div>
+        <form action="" id="cariBuku">
+          <div class="form-input">
+            <label for="judul" class="label">Judul</label>
+            <input type="text" id="judulDicari" class="value" />
+          </div>
+          <div class="form-input">
+            <input type="submit" class="btn btn-primary" value="Cari Buku" />
+            <input type="reset" class="btn btn-warning" value="Reset Pencarian" />
+          </div>
+        </form>
       </div>
 
       <!-- Rak Belum Dibaca -->
@@ -55,6 +53,26 @@
       <div class="shelf">
         <h3>Buku Sudah Selesai</h3>
         <div class="container" id="completedShelf"></div>
+      </div>
+    </div>
+
+    <div class="notification" id="deleteNotification">
+      <div class="modal">
+        <h2>Apakah anda yakin menghapus buku ini?</h2>
+        <div class="form-input">
+          <div class="label">Judul</div>
+          <div class="value" id="valueJudul"></div>
+        </div>
+        <div class="form-input">
+          <div class="label">Author</div>
+          <div class="value" id="valueAuthor"></div>
+        </div>
+        <div class="form-input">
+          <div class="label">Tahun</div>
+          <div class="value" id="valueTahun"></div>
+        </div>
+
+        <div class="groupBtn" id="modalGroupBtn"></div>
       </div>
     </div>
 

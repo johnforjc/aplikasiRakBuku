@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.wrapper {
+  width: 80%;
+  margin: auto;
+  margin-top: 4em;
+  padding: 2em 1.5em;
+  border: solid 4px black;
+  border-radius: 0.75em;
+}
+
+.bookItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bookControl {
+  display: flex;
+}
+
+.btn {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  margin-left: 0.5em;
+}
+
+.btn-changer {
+  background-color: green;
+}
+
+.btn-delete {
+  background-color: red;
+}

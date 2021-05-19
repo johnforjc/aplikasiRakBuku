@@ -5,10 +5,11 @@ function validationInput() {
   return false;
 }
 
-document.addEventListener("DOMContentLoaded", (e) => {
-  const form = document.getElementById("formTambahBuku");
+document.addEventListener("DOMContentLoaded", () => {
+  const formTambahBuku = document.getElementById("formTambahBuku");
+  const formCariBuku = document.getElementById("cariBuku");
 
-  form.addEventListener("submit", (e) => {
+  formTambahBuku.addEventListener("submit", (e) => {
     e.preventDefault();
     // Validation
     if (validationInput()) {
@@ -18,6 +19,25 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
 
     form.reset();
+  });
+
+  formCariBuku.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const judulDicari = document.getElementById("judulDicari").value;
+
+    if (judulDicari !== "") {
+      resetDataRak();
+      cariBuku(judulDicari);
+    } else {
+      resetDataRak();
+      showData();
+    }
+  });
+
+  formCariBuku.addEventListener("reset", () => {
+    resetDataRak();
+    showData();
   });
 
   //   Checking apakah Storage support di browser

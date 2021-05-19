@@ -1,12 +1,33 @@
 const notCompletedBook = document.getElementById("notcompletedShelf");
 const completedBook = document.getElementById("completedShelf");
 
+//
+function resetDataRak() {
+  notCompletedBook.innerHTML = "";
+  completedBook.innerHTML = "";
+}
+
+// Menampilkan buku saat pertama kali dijalankan
 function showData() {
-  for (let buku of listBuku) {
-    makeElement(buku);
+  if (listBuku) {
+    for (let buku of listBuku) {
+      makeElement(buku);
+    }
   }
 }
 
+// Mencari buku untuk form pencarian
+function cariBuku(judul) {
+  if (listBuku) {
+    for (let buku of listBuku) {
+      if (buku.title.search(judul) >= 0) {
+        makeElement(buku);
+      }
+    }
+  }
+}
+
+// Menambah buku sekaligus menampilkannya dan mengupdate data yang ada di localStorage
 function addBuku() {
   const judul = document.getElementById("judul").value;
   const author = document.getElementById("author").value;
@@ -28,28 +49,58 @@ function addBuku() {
   console.log(newItem);
 }
 
-function deleteBook(id) {
-  findIndexBuku(id);
+// Event Handler untuk button hapus buku
+function deleteBook(element) {
+  let indexOnListBuku = findIndexBuku(element["bukuId"]);
+
+  listBuku.splice(indexOnListBuku, 1);
+
+  element.remove();
+  updateLocalStorage();
 }
 
+// Event Handler untuk button sudah selesai atau belum selesai
+function changeIsCompleteBook(element) {
+  let indexOnListBuku = findIndexBuku(element["bukuId"]);
+
+  listBuku[indexOnListBuku].isComplete = !listBuku[indexOnListBuku].isComplete;
+
+  makeElement(listBuku[indexOnListBuku]);
+  element.remove();
+  updateLocalStorage();
+}
+
+// Membuat element HTML dari data buku
 function makeElement(buku) {
   let elementTitle = document.createElement("h2");
+  elementTitle.classList.add("judul");
   elementTitle.innerHTML = buku.title;
 
-  let elementAuthorYear = document.createElement("p");
-  elementAuthorYear.innerHTML = `${buku.author}, ${buku.year}`;
+  let elementAuthor = document.createElement("p");
+  elementAuthor.classList.add("author");
+  elementAuthor.innerHTML = buku.author;
+
+  let elementYear = document.createElement("p");
+  elementYear.classList.add("year");
+  elementYear.innerHTML = buku.year;
 
   let deleteBtn = document.createElement("div");
   deleteBtn.classList.add("btn", "btn-delete");
   deleteBtn.innerHTML = "Hapus";
+  deleteBtn.addEventListener("click", (e) => {
+    deleteBook(e.target.parentElement.parentElement);
+  });
 
   let changerBtn = document.createElement("div");
   changerBtn.classList.add("btn", "btn-changer");
   changerBtn.innerHTML = buku.isComplete ? "Belum Selesai" : "Sudah Selesai";
+  changerBtn.addEventListener("click", (e) => {
+    changeIsCompleteBook(e.target.parentElement.parentElement);
+  });
 
   let bookInfoElement = document.createElement("div");
   bookInfoElement.classList.add("bookInfo");
-  bookInfoElement.append(elementTitle, elementAuthorYear);
+  bookInfoElement.append(elementTitle, elementAuthor, elementYear);
 
   let bookControlElement = document.createElement("div");
   bookControlElement.classList.add("bookControl");
@@ -59,8 +110,6 @@ function makeElement(buku) {
   bookItemElement.classList.add("bookItem");
   bookItemElement.append(bookInfoElement, bookControlElement);
   bookItemElement["bukuId"] = buku.id;
-
-  //   console.log(bookItemElement["bukuId"]);
 
   if (buku.isComplete) {
     completedBook.append(bookItemElement);

@@ -29,38 +29,32 @@
         </form>
       </div>
 
+      <div class="shelf">
+        <h3>Cari Buku</h3>
+        <div class="form-section">
+          <form action="" id="cariBuku">
+            <div class="form-input">
+              <label for="author">Cari menurut judul buku</label>
+              <input type="text" id="judulDicari" />
+            </div>
+            <div class="form-input">
+              <input type="submit" value="Cari Buku" />
+              <input type="reset" value="Reset Form" />
+            </div>
+          </form>
+        </div>
+      </div>
+
       <!-- Rak Belum Dibaca -->
       <div class="shelf">
         <h3>Buku Belum Selesai</h3>
-        <div class="container" id="notcompletedShelf">
-          <div class="bookItem">
-            <div class="bookInfo">
-              <h2>Halo</h2>
-              <p>JohnJohn, 2021</p>
-            </div>
-            <div class="bookControl">
-              <div class="btn btn-changer">Sudah Selesai</div>
-              <div class="btn btn-delete">Hapus</div>
-            </div>
-          </div>
-        </div>
+        <div class="container" id="notcompletedShelf"></div>
       </div>
 
       <!-- Rak Sudah Dibaca -->
       <div class="shelf">
         <h3>Buku Sudah Selesai</h3>
-        <div class="container" id="completedShelf">
-          <div class="bookItem">
-            <div class="bookInfo">
-              <h2>Halo</h2>
-              <p>JohnJohn, 2021</p>
-            </div>
-            <div class="bookControl">
-              <div class="btn btn-changer">Belum Selesai</div>
-              <div class="btn btn-delete">Hapus</div>
-            </div>
-          </div>
-        </div>
+        <div class="container" id="completedShelf"></div>
       </div>
     </div>
 

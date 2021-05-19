@@ -16,9 +16,9 @@ function loadDataFormStorage() {
 
   const data = JSON.parse(dataStorage);
 
-  listBuku = data;
-
-  console.log(listBuku);
+  if (data) {
+    listBuku = data;
+  }
 }
 
 function updateLocalStorage() {
@@ -27,8 +27,14 @@ function updateLocalStorage() {
   localStorage.setItem(STORAGE_NAME, stringify);
 }
 
-function addBuku() {}
+function findIndexBuku(id) {
+  let index = 0;
+  for (let buku of listBuku) {
+    if (buku.id == id) {
+      return index;
+    }
 
-function getBuku() {}
-
-function findIndexBuku(id) {}
+    index++;
+  }
+  return -1;
+}
